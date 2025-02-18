@@ -40,6 +40,7 @@ public interface TransactionSkeleton {
     }
     final int numReadonlySignedAccounts = data[o++];
     final int numReadonlyUnsignedAccounts = data[o++];
+    final TransactionVersion transactionVersion = TransactionVersion.fromVersion(version);
 
     final int numIncludedAccounts = decode(data, o);
     o += getByteLen(data, o);
@@ -91,7 +92,7 @@ public interface TransactionSkeleton {
           Arrays.sort(invokedIndexes);
           return new TransactionSkeletonRecord(
               data,
-              version,
+              transactionVersion,
               messageOffset,
               numRequiredSignatures, numReadonlySignedAccounts, numReadonlyUnsignedAccounts,
               numIncludedAccounts, accountsOffset,
@@ -103,7 +104,7 @@ public interface TransactionSkeleton {
         } else {
           return new TransactionSkeletonRecord(
               data,
-              version,
+              transactionVersion,
               messageOffset,
               numRequiredSignatures, numReadonlySignedAccounts, numReadonlyUnsignedAccounts,
               numIncludedAccounts, accountsOffset,
@@ -116,7 +117,7 @@ public interface TransactionSkeleton {
       } else {
         return new TransactionSkeletonRecord(
             data,
-            version,
+            transactionVersion,
             messageOffset,
             numRequiredSignatures, numReadonlySignedAccounts, numReadonlyUnsignedAccounts,
             numIncludedAccounts, accountsOffset,
@@ -140,7 +141,7 @@ public interface TransactionSkeleton {
       }
       return new TransactionSkeletonRecord(
           data,
-          version,
+          transactionVersion,
           messageOffset,
           numRequiredSignatures, numReadonlySignedAccounts, numReadonlyUnsignedAccounts,
           numIncludedAccounts, accountsOffset,
@@ -154,7 +155,7 @@ public interface TransactionSkeleton {
 
   byte[] data();
 
-  int version();
+  TransactionVersion version();
 
   boolean isVersioned();
 

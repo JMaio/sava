@@ -21,7 +21,7 @@ import static software.sava.core.tx.Transaction.BLOCK_HASH_LENGTH;
 import static software.sava.core.tx.Transaction.VERSIONED_BIT_MASK;
 
 record TransactionSkeletonRecord(byte[] data,
-                                 int version,
+                                 TransactionVersion version,
                                  int messageOffset,
                                  int numSigners,
                                  int numReadonlySignedAccounts,
@@ -37,12 +37,12 @@ record TransactionSkeletonRecord(byte[] data,
 
   @Override
   public boolean isVersioned() {
-    return version != VERSIONED_BIT_MASK;
+    return version != TransactionVersion.LEGACY;
   }
 
   @Override
   public boolean isLegacy() {
-    return version == VERSIONED_BIT_MASK;
+    return version == TransactionVersion.LEGACY;
   }
 
   @Override

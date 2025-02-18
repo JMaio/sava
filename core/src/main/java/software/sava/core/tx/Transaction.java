@@ -655,7 +655,7 @@ public interface Transaction {
 
   byte[] recentBlockHash();
 
-  int version();
+  TransactionVersion version();
 
   int numSigners();
 
